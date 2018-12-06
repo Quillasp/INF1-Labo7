@@ -49,7 +49,6 @@ int main() {
 int romanToInt(string romanNumber) {
 
 	romanNumber = toUpperCase(romanNumber);
-	cout << romanNumber << endl;
     int result = 0;
     for (size_t i = 0; i < romanNumber.length(); ++i) {
         int value = romanChar2Int(romanNumber[i]);
