@@ -6,7 +6,7 @@
 
 using namespace std;
 
-string valeurRomaine(int unit, int multiple);
+string intToRoman(int unit, int multiple);
 
 int romanChar2Int(char romanChar);
 
@@ -33,7 +33,7 @@ int main() {
                 int multiple = (int) pow(10, i);
                 int unit = (value / multiple) * multiple;
                 if (unit != 0 && i + 1 != 0)
-                    romanNumber += valeurRomaine(unit, multiple);
+                    romanNumber += intToRoman(unit, multiple);
                 value = value % multiple;
             }
             cout << romanNumber << endl;
@@ -60,7 +60,7 @@ int romanToInt(string romanNumber) {
     return result;
 }
 
-string valeurRomaine(int unit, int multiple) {
+string intToRoman(int unit, int multiple) {
 
     if (unit < 1 || unit > 4999)
         return "Entree invalide";
