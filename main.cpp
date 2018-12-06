@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include <sstream>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,7 +14,10 @@ int romanToInt(string romanNumber);
 
 char int2RomanChar(int value);
 
+string toUpperCase(string romanNumber);
+
 int main() {
+
     string userInput;
     while (getline(cin, userInput) && !userInput.empty()) {
 
@@ -20,6 +25,7 @@ int main() {
 
         int value;
         if (ss >> value) {
+
             int nbDigits = (int) (log10(value)) + 1;
             string romanNumber;
 
@@ -33,17 +39,17 @@ int main() {
             cout << romanNumber << endl;
         } else {
 
-            cout << romanToInt(userInput);
+            cout << romanToInt(userInput) << endl;
         }
-
-
     }
-
 
     return 0;
 }
 
 int romanToInt(string romanNumber) {
+
+	romanNumber = toUpperCase(romanNumber);
+	cout << romanNumber << endl;
     int result = 0;
     for (size_t i = 0; i < romanNumber.length(); ++i) {
         int value = romanChar2Int(romanNumber[i]);
@@ -101,6 +107,7 @@ char int2RomanChar(int value) {
 }
 
 int romanChar2Int(char romanChar) {
+
     switch (romanChar) {
         case 'M' :
             return 1000;
@@ -120,4 +127,11 @@ int romanChar2Int(char romanChar) {
             return (char) 0;
     }
 
+}
+
+string toUpperCase(string romanNumber) {
+
+	transform(romanNumber.begin(), romanNumber.end(), romanNumber.begin(),
+					 [](unsigned char c) -> unsigned char { return (unsigned char)toupper(c); });
+	return romanNumber;
 }
