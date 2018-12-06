@@ -1,50 +1,60 @@
 #include <iostream>
 #include <cmath>
+#include <sstream>
 
 using namespace std;
 
 string valeurRomaine(int unit, int multiple);
+
 int romanChar2Int(char romanChar);
+
 int romanToInt(string romanNumber);
+
 char int2RomanChar(int value);
 
 int main() {
-    int chiffre;
-//    // Int to roman string
-//    while (cin >> chiffre) {
-//
-//        int nbDigits = (int) (log10(chiffre)) + 1;
-//        string romanNumber;
-//
-//        for (int i = nbDigits - 1; i >= 0; --i) {
-//            int multiple = (int) pow(10, i);
-//            int unit = (chiffre / multiple) * multiple;
-//            if (unit != 0 && i + 1 != 0)
-//                romanNumber += valeurRomaine(unit, multiple);
-//            chiffre = chiffre % multiple;
-//        }
-//        cout << romanNumber << endl;
-//    }
-    //Roman string to int
-    string romanString;
-    cin >> romanString;
-    cout << romanToInt(romanString);
+    string userInput;
+    while (getline(cin, userInput) && !userInput.empty()) {
+
+        stringstream ss(userInput);
+
+        int value;
+        if (ss >> value) {
+            int nbDigits = (int) (log10(value)) + 1;
+            string romanNumber;
+
+            for (int i = nbDigits - 1; i >= 0; --i) {
+                int multiple = (int) pow(10, i);
+                int unit = (value / multiple) * multiple;
+                if (unit != 0 && i + 1 != 0)
+                    romanNumber += valeurRomaine(unit, multiple);
+                value = value % multiple;
+            }
+            cout << romanNumber << endl;
+        } else {
+
+            cout << romanToInt(userInput);
+        }
+
+
+    }
+
+
     return 0;
 }
-int romanToInt(string romanNumber)
-{
-    int result= 0;
-    for(size_t i = 0; i < romanNumber.length(); ++i)
-    {
+
+int romanToInt(string romanNumber) {
+    int result = 0;
+    for (size_t i = 0; i < romanNumber.length(); ++i) {
         int value = romanChar2Int(romanNumber[i]);
-        if(i < romanNumber.length() - 1 &&  value < romanChar2Int(romanNumber[i + 1]) )
-        {
+        if (i < romanNumber.length() - 1 && value < romanChar2Int(romanNumber[i + 1])) {
             value *= (-1);
         }
         result += value;
     }
     return result;
 }
+
 string valeurRomaine(int unit, int multiple) {
 
     if (unit < 1 || unit > 4999)
@@ -55,13 +65,13 @@ string valeurRomaine(int unit, int multiple) {
     if (unit > 1000)
         return string(mod, int2RomanChar(multiple));
 
-    // case when it has to subtract
+        // case when it has to subtract
     else if (unit == 9 * multiple || unit == 4 * multiple)
         return string(1, int2RomanChar(multiple)) + string(1, int2RomanChar(unit + multiple));
-    // case when it has to add
+        // case when it has to add
     else if (unit >= multiple && unit < 4 * multiple)
         return string(mod, int2RomanChar(multiple));
-    // case when it has to add to a 5 * 10^n multiple (5 = V, 50 = L, 500 = D), 5 => V,6=> VI, 70 => LII , 800 => DCCC
+        // case when it has to add to a 5 * 10^n multiple (5 = V, 50 = L, 500 = D), 5 => V,6=> VI, 70 => LII , 800 => DCCC
     else if (unit >= 5 * multiple && unit < 9 * multiple)
         return int2RomanChar(5 * multiple) + string(mod - 5, int2RomanChar(multiple));
 
@@ -89,13 +99,13 @@ char int2RomanChar(int value) {
             return (char) 0;
     }
 }
-int romanChar2Int(char romanChar)
-{
+
+int romanChar2Int(char romanChar) {
     switch (romanChar) {
         case 'M' :
             return 1000;
         case 'D' :
-            return  500;
+            return 500;
         case 'C' :
             return 100;
         case 'L' :
