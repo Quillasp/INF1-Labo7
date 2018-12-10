@@ -6,13 +6,19 @@
 
 using namespace std;
 
+const string ERROR = "Non valide";
+const int MIN = 1;
+const int MAX = 4999;
+
 string intToRoman(int unit, int multiple);
 
 int romanChar2Int(char romanChar);
 
-int romanToInt(string romanNumber);
+int roman2Int(string romanNumber);
 
 char int2RomanChar(int value);
+
+string number2Roman(int value);
 
 string toUpperCase(string romanNumber);
 
@@ -25,30 +31,43 @@ int main() {
 
         int value;
         if (ss >> value) {
+            cout << number2Roman(value);
 
-            int nbDigits = (int) (log10(value)) + 1;
-            string romanNumber;
-
-            for (int i = nbDigits - 1; i >= 0; --i) {
-                int multiple = (int) pow(10, i);
-                int unit = (value / multiple) * multiple;
-                if (unit != 0 && i + 1 != 0)
-                    romanNumber += intToRoman(unit, multiple);
-                value = value % multiple;
-            }
-            cout << romanNumber << endl;
         } else {
 
-            cout << romanToInt(userInput) << endl;
+            int number =  roman2Int(userInput);
+            if(userInput != number2Roman(number))
+                cout << ERROR;
+            else
+                cout << number;
         }
+        cout << endl;
     }
 
     return 0;
 }
 
-int romanToInt(string romanNumber) {
+string number2Roman(int value) {
 
-	romanNumber = toUpperCase(romanNumber);
+    if (value < MIN || value > MAX)
+        return ERROR;
+
+    int nbDigits = (int) (log10(value)) + 1;
+    string romanNumber;
+
+    for (int i = nbDigits - 1; i >= 0; --i) {
+        int multiple = (int) pow(10, i);
+        int unit = (value / multiple) * multiple;
+        if (unit != 0 && i + 1 != 0)
+            romanNumber += intToRoman(unit, multiple);
+        value = value % multiple;
+    }
+    return romanNumber;
+}
+
+int roman2Int(string romanNumber) {
+
+    romanNumber = toUpperCase(romanNumber);
     int result = 0;
     for (size_t i = 0; i < romanNumber.length(); ++i) {
         int value = romanChar2Int(romanNumber[i]);
@@ -57,13 +76,11 @@ int romanToInt(string romanNumber) {
         }
         result += value;
     }
+
     return result;
 }
 
 string intToRoman(int unit, int multiple) {
-
-    if (unit < 1 || unit > 4999)
-        return "Entree invalide";
 
     size_t mod = (size_t) (unit / multiple);
     // thousand, 3000 => MMM, 4123 => MMMM
@@ -130,7 +147,7 @@ int romanChar2Int(char romanChar) {
 
 string toUpperCase(string romanNumber) {
 
-	transform(romanNumber.begin(), romanNumber.end(), romanNumber.begin(),
-					 [](unsigned char c) -> unsigned char { return (unsigned char)toupper(c); });
-	return romanNumber;
+    transform(romanNumber.begin(), romanNumber.end(), romanNumber.begin(),
+              [](unsigned char c) -> unsigned char { return (unsigned char) toupper(c); });
+    return romanNumber;
 }

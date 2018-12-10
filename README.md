@@ -1,1 +1,1 @@
-Petit programme devant permettre la converstion de nombre romain en indo-arabe et vace-versi.
+Petit programme devant permettre la converstion de nombre int2RomanChar en indo-arabe et vace-versi.
