@@ -1,3 +1,18 @@
+/* ---------------------------
+Laboratoire : 07
+Fichier :     main.cpp
+Auteur(s) :   Soulaymane Lamrani, Ilias Goujgali & Wènes Limem
+Date :        11.12.18
+
+But : Ce programme permet de traduire des nombres romans en nombre arabe et inversément
+
+Remarque(s) :
+
+Compilateur : MinGW 7.3.0
+
+--------------------------- */
+
+
 #include <iostream>
 #include <cmath>
 #include <sstream>
@@ -10,16 +25,53 @@ const string ERROR = "Non valide";
 const int MIN = 1;
 const int MAX = 4999;
 
+/**
+ * @brief Translate a int into the roman equivalent number
+ * @param unit the unit to translate
+ * @param multiple is the position of the number: 1234 => **3* => multiple = 2
+ * @return the tranlsation string
+ * @example unit 5, multiple 2 => D
+ *          unit 3, multiple 0 => III
+ */
 string intToRoman(int unit, int multiple);
 
+/**
+ * @brief return the number of a given roman number
+ * @param romanChar
+ * @return the roman number string
+ * @example V => 5
+ */
 int romanChar2Int(char romanChar);
 
+/**
+ *  @brief translate a roman number into arabian number
+ *
+ * @param romanNumber
+ * @return
+ * @example MCMXCIV => 1994
+ */
 int roman2Int(string romanNumber);
 
+/**
+ * @brief Return the roman char for a given arabian value
+ * @param value
+ * @return the char to return
+ * @example 1000 => M
+ */
 char int2RomanChar(int value);
 
+/**
+ * @brief translate a int into the roman number
+ * @param value
+ * @return string of the roman number
+ */
 string number2Roman(int value);
 
+/**
+ * @brief return the given string into a string with capital letters
+ * @param romanNumber
+ * @return the string in captial letters
+ */
 string toUpperCase(string romanNumber);
 
 int main() {
@@ -79,7 +131,6 @@ int roman2Int(string romanNumber) {
 
     return result;
 }
-
 string intToRoman(int unit, int multiple) {
 
     size_t mod = (size_t) (unit / multiple);
@@ -142,7 +193,6 @@ int romanChar2Int(char romanChar) {
         default:
             return (char) 0;
     }
-
 }
 
 string toUpperCase(string romanNumber) {
