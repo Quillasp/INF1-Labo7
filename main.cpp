@@ -35,6 +35,7 @@ int main() {
 
         } else {
 
+            userInput = toUpperCase(userInput);
             int number =  roman2Int(userInput);
             if(userInput != number2Roman(number))
                 cout << ERROR;
@@ -67,7 +68,6 @@ string number2Roman(int value) {
 
 int roman2Int(string romanNumber) {
 
-    romanNumber = toUpperCase(romanNumber);
     int result = 0;
     for (size_t i = 0; i < romanNumber.length(); ++i) {
         int value = romanChar2Int(romanNumber[i]);
